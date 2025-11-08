@@ -1,0 +1,28 @@
+# Ignorar archivos específicos de la máquina local
+*.local
+.local
+
+# Ignorar cualquier archivo que contenga la palabra "secret"
+*secret*
+*token*
+
+# Ignorar historiales de shell
+.bash_history
+.zsh_history
+.history
+
+# Ignorar cachés y logs
+*.log
+.cache/
+
+# Ignorar configuración de SSH y GPG
+.ssh/
+.gnupg/
+
+# Ignorar archivos de configuración de IDEs o editores
+.vscode/
+.idea/
+.DS_Store
+
+# Ignorar el propio stow-ignore
+.stow-ignore

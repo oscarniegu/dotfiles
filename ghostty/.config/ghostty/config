@@ -1,0 +1,42 @@
+# --- Configuración Optimizada para Ghostty en KDE Plasma ---
+
+# Integración nativa con KDE (usa los bordes y la barra de título de KWin)
+window-decoration = auto
+
+# Tema y apariencia visual
+theme = "Catppuccin Mocha"
+background-opacity = 0.85
+background-blur = 1
+window-padding-x = 10
+window-padding-y = 10
+
+# Tipografía
+font-family = "JetBrainsMono Nerd Font Mono"
+font-size = 13
+
+
+# Descomenta la siguiente línea para desactivar las ligaduras (ej. '!=' en lugar de '≠')
+# font-feature = "-liga"
+
+# Cursor personalizado
+cursor-style = bar
+custom-shader = shaders/cursor_blaze_tapered.glsl
+
+# NVIDIA: deja VSync en manos de KWin (ya usa triple buffering y evita tearing)
+window-vsync = false
+
+
+
+# Rendimiento y ventana
+gtk-single-instance = true
+window-height = 33
+window-width = 122
+#window-vsync = true
+
+# Funcionalidad del portapapeles y mouse
+clipboard-read = allow
+clipboard-write = allow
+mouse-hide-while-typing = true
+
+# Integración con la Shell para mayor productividad
+shell-integration = detect

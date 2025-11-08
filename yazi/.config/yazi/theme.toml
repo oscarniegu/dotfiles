@@ -1,0 +1,19 @@
+# Optimized Yazi theme (by ChatGPT)
+"$schema" = "https://yazi-rs.github.io/schemas/theme.json"
+
+[flavor]
+dark  = "catppuccin-mocha"
+light = "catppuccin-latte"
+
+[mgr]
+hovered = { fg = "black", bg = "lightcyan", bold = true }
+find_keyword = { fg = "yellow", bold = true, underline = true }
+
+[tabs]
+active   = { fg = "black", bg = "cyan", bold = true }
+inactive = { fg = "gray", bg = "black" }
+
+[status]
+overall   = { bg = "black", fg = "white" }
+progress_label  = { fg = "cyan", bold = true }
+progress_normal = { fg = "black", bg = "cyan" }

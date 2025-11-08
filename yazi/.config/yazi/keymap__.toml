@@ -1,0 +1,21 @@
+# Optimized Yazi keymap (by ChatGPT)
+"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+
+[mgr]
+keymap = [
+  # Navegación vim-like
+  { on = "<C-h>", run = "leave", desc = "Ir al directorio superior" },
+  { on = "<C-l>", run = "enter", desc = "Entrar al directorio" },
+
+  # Pestañas
+  { on = "gt", run = "tab_switch 1 --relative", desc = "Pestaña siguiente" },
+  { on = "gT", run = "tab_switch -1 --relative", desc = "Pestaña anterior" },
+
+  # Gestión rápida
+  { on = "u", run = "undo", desc = "Deshacer última acción" },
+  { on = "U", run = "redo", desc = "Rehacer última acción" },
+
+  # Salida segura
+  { on = "ZZ", run = "quit", desc = "Salir guardando estado" },
+  { on = "ZQ", run = "quit --no-cwd-file", desc = "Salir sin guardar" },
+]

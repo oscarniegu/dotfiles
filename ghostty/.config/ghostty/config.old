@@ -1,0 +1,20 @@
+# This is the configuration file for Ghostty.
+
+# custom-shader = shaders/cursor_smear.glsl
+# custom-shader = shaders/cursor_smear_fade.glsl
+# custom-shader = shaders/cursor_blaze.glsl
+# custom-shader = shaders/cursor_blaze_no_trail.glsl
+custom-shader = shaders/cursor_blaze_tapered.glsl
+
+font-family = JetBrainsMono Nerd Font Mono
+font-size = 13
+theme = Catppuccin Mocha
+background-opacity = 0.8
+cursor-style = bar
+
+window-height = 33
+window-width = 122
+window-vsync
+clipboard-read = allow
+clipboard-write = allow
+mouse-hide-while-typing = true
