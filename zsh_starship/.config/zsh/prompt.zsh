@@ -45,7 +45,7 @@ add-zsh-hook precmd add_newline_before_prompt
 function notify_error {
   local exit_code=$?
   if [[ $exit_code -ne 0 ]]; then
-    echo "%F{red}✖ Error código $exit_code%f"
+    print -P "%F{red}✖ Error código $exit_code%f"
   fi
 }
 add-zsh-hook precmd notify_error
