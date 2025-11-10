@@ -96,10 +96,6 @@ symbol = "🧪 "
 style = "bold yellow"
 format = "[$symbol$environment]($style) "
 
-[poetry]
-symbol = "🎵 "
-style = "bold purple"
-format = "[$symbol$version]($style) "
 
 [env_var]
 variable = "VIRTUAL_ENV"
