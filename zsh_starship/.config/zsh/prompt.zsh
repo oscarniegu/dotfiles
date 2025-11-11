@@ -8,7 +8,7 @@
 # 🕐 Mensaje de bienvenida (solo en shells interactivas)
 if [[ $- == *i* ]]; then
   echo ""
-  print -P "%F{cyan}Bienvenido, $USER 👋%f"
+  print -P "%F{cyan}Bienvenido, $USER %f"
   print -P "%F{yellow}$(date '+%A, %d de %B de %Y — %H:%M:%S')%f"
   echo ""
 fi
