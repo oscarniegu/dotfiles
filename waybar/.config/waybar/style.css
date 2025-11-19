@@ -1,0 +1,157 @@
+/* style.css optimizado */
+
+/* Colores (Dracula) - Mantenemos tus definiciones */
+@define-color background    rgba(40, 42, 54, 0.85); /* Un poco más opaco para legibilidad */
+@define-color foreground    #f8f8f2;
+@define-color red           #ff5555;
+@define-color green         #50fa7b;
+@define-color yellow        #f1fa8c;
+@define-color purple        #bd93f9;
+@define-color orange        #ffb86c;
+@define-color black         #21222c;
+@define-color blue          #6272a4;
+@define-color gray          #44475a; /* Corregido */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", monospace; /* Nombre de fuente corregido */
+    font-weight: bold;
+    font-size: 14px; /* 16px es muy grande para height 36, 14px es más balanceado */
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: @foreground;
+}
+
+/* --- Workspaces --- */
+#workspaces {
+    background: @background;
+    margin: 4px 4px;
+    padding: 0px 5px;
+    border-radius: 12px; /* Redondeado moderno */
+}
+
+#workspaces button {
+    padding: 0px 5px;
+    color: @foreground;
+    transition: all 0.3s ease;
+}
+
+#workspaces button.active {
+    color: @green;
+    border-bottom: 2px solid @green;
+}
+
+#workspaces button.urgent {
+    color: @red;
+}
+
+#workspaces button:hover {
+    color: @purple;
+    background: transparent; /* Hover sutil */
+    box-shadow: inherit;
+    text-shadow: inherit;
+}
+
+/* --- Módulos Generales --- */
+/* Aplicamos estilo base a todos los módulos */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+/* Agrupación visual por colores y "pills" */
+
+/* Píldora Izquierda (Rofi + Weather + Date) */
+#custom-rofi {
+    background: @purple;
+    color: @black;
+    margin-left: 5px;
+    padding: 0 12px;
+    border-radius: 12px 0 0 12px; /* Inicio de píldora */
+}
+#custom-weather {
+    background: @background;
+    padding: 0 8px;
+}
+#custom-khorshididate {
+    background: @background;
+    padding: 0 8px 0 4px;
+    border-radius: 0 12px 12px 0; /* Fin de píldora */
+    margin-right: 10px;
+}
+
+/* Reloj */
+#clock {
+    background: @background;
+    color: @orange;
+    padding: 0 10px;
+    border-radius: 12px;
+    margin: 0 5px;
+}
+
+/* Píldora Derecha - Hardware (Cpu, Mem, Disk, Temp) */
+#cpu, #memory, #disk, #temperature {
+    background: @background;
+    color: @foreground;
+    padding: 0 6px;
+}
+#cpu {
+    border-radius: 12px 0 0 12px;
+    margin-left: 10px;
+    color: @blue;
+}
+#temperature {
+    border-radius: 0 12px 12px 0;
+    margin-right: 10px;
+    color: @red;
+}
+
+/* Píldora Audio/Red/Batería */
+#pulseaudio, #pulseaudio.microphone, #network, #battery, #backlight {
+    background: @background;
+    padding: 0 8px;
+}
+
+#pulseaudio {
+    border-radius: 12px 0 0 12px; /* Inicio grupo sistema */
+    color: @purple;
+}
+
+#battery {
+    color: @green;
+}
+
+/* Power Menu */
+#custom-power {
+    background: @red;
+    color: @white;
+    padding: 0 12px;
+    margin-right: 5px;
+    border-radius: 0 12px 12px 0;
+}
+
+/* Estados Críticos */
+#battery.critical.discharging {
+    background-color: @red;
+    color: @white;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+tooltip {
+    background: @background;
+    border: 1px solid @purple;
+    border-radius: 8px;
+}
+tooltip label {
+    color: @foreground; /* Corregido el bug de @grey */
+}

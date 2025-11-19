@@ -1,0 +1,265 @@
+#######################################################################################
+# CONFIGURACIÓN HYPRLAND OPTIMIZADA
+#######################################################################################
+
+# Para dividir la configuración en múltiples archivos:
+# source = ~/.config/hypr/myColors.conf
+
+
+################
+### MONITORS ###
+################
+
+# La configuración actual es adecuada para un monitor principal con escalado 1.2.
+# Si tienes monitores múltiples, define cada uno con su nombre (ej: monitor=DP-1,1920x1080@144,0x0,1).
+monitor=,preferred,auto,1.2
+
+
+###################
+### MY PROGRAMS ###
+###################
+
+$terminal = kitty
+$fileManager = dolphin
+$menu = rofi -show drun
+$navegador = firefox
+
+#################
+### AUTOSTART ###
+#################
+
+# Se recomienda separar los exec-once y usar & para ejecutarlos en segundo plano.
+exec-once = waybar &
+exec-once = hyprpaper &
+exec-once = nm-applet --indicator &
+
+# Componentes esenciales:
+# Agente de Polkit (ej: para autenticación de elevación de privilegios en GUI)
+exec-once = /usr/lib/polkit-kde-authentication-agent-1 & # Usar el agente de tu entorno
+# Daemon de notificaciones (ej: dunst)
+exec-once = dunst &
+
+
+#############################
+### ENVIRONMENT VARIABLES ###
+#############################
+
+# Variables de cursor
+env = XCURSOR_SIZE,24
+env = HYPRCURSOR_SIZE,24
+
+# Variables XDG para asegurar la compatibilidad con más aplicaciones
+env = XDG_CURRENT_DESKTOP,Hyprland
+env = XDG_SESSION_TYPE,wayland
+env = XDG_SESSION_DESKTOP,Hyprland
+
+
+###################
+### PERMISSIONS ###
+###################
+
+# Descomentar si usas captura de pantalla (grim/slurp) y compartición de pantalla.
+# permission = /usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland, screencopy, allow
+# permission = /usr/(bin|local/bin)/grim, screencopy, allow
+
+
+#####################
+### LOOK AND FEEL ###
+#####################
+
+layerrule = noanim, waybar
+layerrule = ignorezero, waybar
+
+
+general {
+    gaps_in = 5
+    gaps_out = 15 # Reducido un poco los gaps exteriores para aprovechar mejor el espacio
+
+    border_size = 2
+
+    col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
+    col.inactive_border = rgba(595959aa)
+
+    resize_on_border = false
+
+    allow_tearing = false
+
+    layout = dwindle
+}
+
+decoration {
+    rounding = 10
+    rounding_power = 2
+
+    active_opacity = 1.0
+    inactive_opacity = 1.0
+
+    shadow {
+        enabled = true
+        range = 4
+        render_power = 3
+        color = rgba(1a1a1aee)
+    }
+
+    blur {
+        enabled = true
+        size = 5    # Aumentado para un desenfoque más suave
+        passes = 3  # Aumentado para mejor calidad de desenfoque
+        vibrancy = 0.1696
+    }
+}
+
+animations {
+    enabled = true # Sintaxis más robusta (era yes, please :) )
+
+    # Curvas personalizadas
+    bezier = easeOutQuint, 0.23, 1, 0.32, 1
+    bezier = almostLinear, 0.5, 0.5, 0.75, 1
+    bezier = quick, 0.15, 0, 0.1, 1
+
+    # Animaciones
+    animation = global,        1, 10, default
+    animation = border,        1, 5.39, easeOutQuint
+    animation = windows,       1, 4.79, easeOutQuint
+    animation = windowsIn,     1, 4.1, easeOutQuint, popin 87%
+    animation = windowsOut,    1, 2.5, almostLinear, popin 87% # Acelerado el cierre
+    animation = fadeIn,        1, 1.73, almostLinear
+    animation = fadeOut,       1, 1.46, almostLinear
+    animation = workspaces,    1, 1.94, almostLinear, fade
+    animation = zoomFactor,    1, 7, quick
+}
+
+# La sección "workspace =" se deja comentada, ya que son reglas muy específicas.
+
+dwindle {
+    pseudotile = true
+    preserve_split = true
+}
+
+# Se elimina el bloque "master" ya que no es necesario para el layout dwindle.
+
+misc {
+    force_default_wallpaper = 0
+    disable_hyprland_logo = true
+}
+
+
+#############
+### INPUT ###
+#############
+
+input {
+    kb_layout = es
+    kb_variant =
+    kb_model =
+    kb_options =
+    kb_rules =
+
+    follow_mouse = 1
+
+    sensitivity = 0
+
+    touchpad {
+        natural_scroll = false
+    }
+}
+
+gesture = 3, horizontal, workspace
+
+device {
+    name = epic-mouse-v1
+    sensitivity = -0.5
+}
+
+
+###################
+### KEYBINDINGS ###
+###################
+
+$mainMod = SUPER
+
+# Binds principales
+bind = $mainMod, T, exec, $terminal
+bind = $mainMod, X, killactive,
+bind = $mainMod SHIFT, Q, exit, # Cambiado a SHIFT para evitar cierre accidental
+bind = $mainMod, F, exec, $fileManager
+bind = $mainMod, V, togglefloating,
+bind = $mainMod, R, exec, $menu
+bind = $mainMod, P, pseudo,
+bind = $mainMod, J, togglesplit,
+bind = $mainMod, B, exec, $navegador
+
+# Funcionalidad y control
+bind = $mainMod, Return, fullscreen , 0 # Cambiado a alternar maximizado (más útil)
+bind = $mainMod SHIFT, R, exec, hyprctl reload # **NUEVO: Recargar Configuración**
+
+# Mover foco con $mainMod + flechas
+bind = $mainMod, left, movefocus, l
+bind = $mainMod, right, movefocus, r
+bind = $mainMod, up, movefocus, u
+bind = $mainMod, down, movefocus, d
+
+# **NUEVO: Mover ventana activa con $mainMod + SHIFT + flechas**
+bind = $mainMod SHIFT, left, movetoworkspace, -1
+bind = $mainMod SHIFT, right, movetoworkspace, +1
+
+# Switch workspaces
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+bind = $mainMod, 6, workspace, 6
+bind = $mainMod, 7, workspace, 7
+bind = $mainMod, 8, workspace, 8
+bind = $mainMod, 9, workspace, 9
+bind = $mainMod, 0, workspace, 10
+
+# Move active window to a workspace
+bind = $mainMod CONTROL, 1, movetoworkspace, 1 # Cambiado de SHIFT a CONTROL para evitar conflicto
+bind = $mainMod CONTROL, 2, movetoworkspace, 2
+bind = $mainMod CONTROL, 3, movetoworkspace, 3
+bind = $mainMod CONTROL, 4, movetoworkspace, 4
+bind = $mainMod CONTROL, 5, movetoworkspace, 5
+bind = $mainMod CONTROL, 6, movetoworkspace, 6
+bind = $mainMod CONTROL, 7, movetoworkspace, 7
+bind = $mainMod CONTROL, 8, movetoworkspace, 8
+bind = $mainMod CONTROL, 9, movetoworkspace, 9
+bind = $mainMod CONTROL, 0, movetoworkspace, 10
+
+# Scroll y special workspace
+bind = $mainMod, mouse_down, workspace, e+1
+bind = $mainMod, mouse_up, workspace, e-1
+bind = $mainMod, S, togglespecialworkspace, magic
+bind = $mainMod SHIFT, S, movetoworkspace, special:magic
+
+# Move/resize windows con ratón
+bindm = $mainMod, mouse:1, movewindow
+bindm = $mainMod, mouse:3, resizewindow
+
+# Teclas multimedia y brillo (correctas)
+bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+bindel = ,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindel = ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindel = ,XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindel = ,XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+
+bindel = ,XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-
+bindl = , XF86AudioNext, exec, playerctl next
+bindl = , XF86AudioPause, exec, playerctl play-pause
+bindl = , XF86AudioPlay, exec, playerctl play-pause
+bindl = , XF86AudioPrev, exec, playerctl previous
+
+
+##############################
+### WINDOWS AND WORKSPACES ###
+##############################
+
+# Ignorar peticiones de maximizar de aplicaciones
+windowrule = suppressevent maximize, class:.*
+
+# Reglas de utilidad (ejemplos comunes)
+windowrule = float, class:^(pavucontrol)$
+windowrule = float, class:^(qalculate-gtk)$
+windowrule = size 600 400, class:^(qalculate-gtk)$
+windowrule = center, class:^(qalculate-gtk)$
+windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0
