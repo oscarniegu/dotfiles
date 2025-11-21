@@ -5,7 +5,7 @@
     "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
-    "height": 36,
+    "height": 34,
     "margin-right": 5,
     "margin-left": 5,
     "margin-top": 5,
@@ -26,15 +26,13 @@
         "tray",
         "pulseaudio",
         "pulseaudio#microphone",
-        "backlight",
         "cpu",
         "memory",
         "disk",
         "temperature",
-        "custom/updates",
         "network",
-        "battery",
         "hyprland/language",
+        "battery",
         "custom/lock_screen",
         "custom/power"
     ],
@@ -45,16 +43,42 @@
         "tooltip": false
     },
 
-    "custom/power": {
-        "format": "",
-        "on-click": "wlogout",
-        "tooltip": false
+    "custom/weather": {
+        "tooltip" : true,
+        "format" : "{}",
+        "interval" : 3600,
+        "exec" : "~/.config/waybar/scripts/wttr.py",
+        "return-type" : "json"
     },
 
-    "custom/lock_screen": {
-        "format": "",
-        "on-click": "sh -c '(sleep 0.5s; swaylock -eFfki ~/Pictures/lockscreen.png)' & disown",
-        "tooltip": false
+    "custom/khorshididate": { 
+        "tooltip" : true,
+        "format": " {}",
+        "format-alt": " {alt}",
+        "format-alt-click": "click-right",
+        "interval": 3600,
+        "exec": "~/.config/waybar/scripts/khorshidi-date",
+        "return-type" : "json"
+    },
+
+    "clock": {
+        "timezone": "Europe/Madrid",
+        "format": " {:%H:%M}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": " {:%d/%m/%Y}",
+        "on-click": "setbg" 
+    },
+
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 14,
+        "all-outputs": true,
+        "tooltip-format": "{name}: {title}",
+        "on-click": "activate",
+        "on-click-middle": "close",
+        "ignore-list": [
+            "rofi"
+        ]
     },
 
     "hyprland/workspaces": {
@@ -67,81 +91,14 @@
         }
     },
 
-    "wlr/taskbar": {
-        "format": "{icon}",
-        "icon-size": 12,
-        "all-outputs": true,
-        "tooltip-format": "{name}: {title}",
-        "on-click": "activate",
-        "on-click-middle": "close",
-        "ignore-list": [
-            "rofi"
-         ]
-    },
-
     "tray": {
-        "icon-size": 12,
+        "icon-size": 14,
         "spacing": 10
     },
 
-    "cpu": {
-        "interval": 10,
-        "format": "",
-        "max-length": 10,
-        "format-alt-click": "click-right",
-        "format-alt": " {usage}%"
-    },
-
-    "memory": {
-        "interval": 30,
-        "format": "",
-        "format-alt-click": "click-right",
-        "format-alt": " {}%",
-        "max-length": 10,
-        "tooltip": true,
-        "tooltip-format": "Memory - {used:0.1f}GB used"
-    },
-    
-    "disk": {
-        "interval": 600,
-        "format": "󰋊",
-        "path": "/",
-        "format-alt-click": "click-right",
-        "format-alt": "󰋊 {percentage_used}%",
-        "tooltip": true,
-        "tooltip-format": "HDD - {used} used out of {total} on {path} ({percentage_used}%)",
-        "states": {
-            "warning": 85,
-            "critical": 90
-        }
-    },
-
-    "temperature": {
-        "thermal-zone": 1,
-        "format": "",
-        "format-alt-click": "click-right",
-        "format-alt": " {temperatureC}°C",
-        "critical-threshold": 70,
-        "format-critical": " {temperatureC}°C"
-    },
-
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 20
-        },
-        "format": "{icon}",
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-alt-click": "click-right",
-        "format-alt": "{icon} {capacity}%",
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
-    },
-
     "pulseaudio": {
-        "format": "{icon}",
-        "format-muted": "",
+        "format": "{icon} {volume}%",
+        "format-muted": " Muted",
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "on-click-right": "pavucontrol",
         "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
@@ -173,22 +130,72 @@
         "tooltip-format": " at {volume}%"
     },
 
-    "backlight": {
-        "device": "intel_backlight",
-        "format": "{icon}",
-        "format-alt-click": "click-right",
-        "format-alt": "{icon} {percent}%",
-        "format-icons": ["󰃞", "󰃟", "󰃠"],
-        "on-scroll-up": "incbrightness",
-        "on-scroll-down": "decbrightness"
+    "cpu": {
+        "interval": 10,
+        "format": " {usage}%",
+        "max-length": 10,
+        "on-click": "foot htop"
     },
 
-    "custom/weather": {
-        "tooltip" : true,
-        "format" : "{}",
-        "interval" : 3600,
-        "exec" : "~/.config/waybar/scripts/wttr.py",
-        "return-type" : "json"
+    "memory": {
+        "interval": 30,
+        "format": " {}%",
+        "max-length": 10,
+        "tooltip": true,
+        "tooltip-format": "Memory - {used:0.1f}GB used",
+        "on-click": "foot htop"
+    },
+    
+    "disk": {
+        "interval": 600,
+        "format": "󰋊 {percentage_used}%",
+        "path": "/",
+        "tooltip": true,
+        "tooltip-format": "HDD - {used} used out of {total} on {path} ({percentage_used}%)",
+        "states": {
+            "warning": 85,
+            "critical": 90
+        }
+    },
+
+    "temperature": {
+        "thermal-zone": 1,
+        "format": " {temperatureC}°C",
+        "critical-threshold": 80,
+        "format-critical": " {temperatureC}°C"
+    },
+
+    "network": {
+        "format": "{ifname}",
+        "format-wifi": "  {signalStrength}%",
+        "format-ethernet": "  Wired",
+        "format-disconnected": "  Disconnected",
+        "tooltip-format": " {ifname} via {gwaddr}",
+        "tooltip-format-wifi": " {essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": " {ifname} {ipaddr}/{cidr}",
+        "max-length": 50,
+        "on-click": "nm-connection-editor"
+    },
+
+    "hyprland/language": {
+        "format": "{}",
+        "format-en": "EN",
+        "format-es": "ES",
+        "format-fa": "FA",
+        "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next"
+   },
+
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
 
     "custom/updates": {
@@ -201,40 +208,24 @@
         "return-type" : "json"
     },
 
-    "network": {
-        "format": "{ifname}",
-        "format-wifi": " ",
-        "format-ethernet": " ",
-        "format-disconnected": " ",
-        "tooltip-format": " {ifname} via {gwaddr}",
-        "tooltip-format-wifi": " {essid} ({signalStrength}%)",
-        "tooltip-format-ethernet": " {ifname} {ipaddr}/{cidr}",
-        "tooltip-format-disconnected": "Disconnected",
-        "max-length": 50
+    "custom/lock_screen": {
+        "format": "",
+        "on-click": "sh -c '(sleep 0.5s; swaylock -eFfki ~/Pictures/lockscreen.png)' & disown",
+        "tooltip": false
     },
 
-    "clock": {
-        "timezone": "Europe/Madrid",
-        "format": "{: %H:%M}",
-        "tooltip": true,
-        "on-click": "setbg",
-        "tooltip-format": "{: %A, %B %e %Y}"
+    "custom/power": {
+        "format": "",
+        "on-click": "wlogout",
+        "tooltip": false
     },
 
-    "custom/khorshididate": { 
-        "tooltip" : true,
-        "format": " {}",
-        "format-alt": " {alt}",
-        "format-alt-click": "click-right",
-        "interval": 3600,
-        "exec": "~/.config/waybar/scripts/khorshidi-date",
-        "return-type" : "json"
-    },
-
-   "hyprland/language": {
-        "format": "{}",
-        "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
-        "format-en": "EN",
-        "format-fa": "FA"
-   }
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon}",
+        "format-alt": "{icon} {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-"
+    }
 }

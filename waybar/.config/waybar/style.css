@@ -1,157 +1,193 @@
-/* style.css optimizado */
+/* --- ESTILO DRACULA MODERNO (BURBUJAS) --- */
 
-/* Colores (Dracula) - Mantenemos tus definiciones */
-@define-color background    rgba(40, 42, 54, 0.85); /* Un poco más opaco para legibilidad */
-@define-color foreground    #f8f8f2;
-@define-color red           #ff5555;
-@define-color green         #50fa7b;
-@define-color yellow        #f1fa8c;
-@define-color purple        #bd93f9;
-@define-color orange        #ffb86c;
-@define-color black         #21222c;
-@define-color blue          #6272a4;
-@define-color gray          #44475a; /* Corregido */
+@define-color bg_main    rgba(40, 42, 54, 0.85);
+@define-color bg_focus   rgba(68, 71, 90, 0.85);
+@define-color fg         #f8f8f2;
+@define-color cyan       #8be9fd;
+@define-color green      #50fa7b;
+@define-color orange     #ffb86c;
+@define-color pink       #ff79c6;
+@define-color purple     #bd93f9;
+@define-color red        #ff5555;
+@define-color yellow     #f1fa8c;
 
 * {
     border: none;
     border-radius: 0;
-    font-family: "JetBrainsMono Nerd Font", monospace; /* Nombre de fuente corregido */
+    /* Asegúrate de tener una Nerd Font instalada */
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", monospace;
     font-weight: bold;
-    font-size: 14px; /* 16px es muy grande para height 36, 14px es más balanceado */
+    font-size: 13px; /* Tamaño un poco más fino */
     min-height: 0;
 }
 
 window#waybar {
     background: transparent;
-    color: @foreground;
+    color: @fg;
 }
 
-/* --- Workspaces --- */
+/* --- WORKSPACES (Isla central) --- */
 #workspaces {
-    background: @background;
-    margin: 4px 4px;
-    padding: 0px 5px;
-    border-radius: 12px; /* Redondeado moderno */
+    background: @bg_main;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 2px 10px;
+    border-radius: 15px; /* Bordes muy redondos */
+    border: 1px solid @bg_focus;
 }
 
 #workspaces button {
-    padding: 0px 5px;
-    color: @foreground;
-    transition: all 0.3s ease;
+    padding: 0 5px;
+    color: @fg;
+    border-radius: 10px;
 }
 
 #workspaces button.active {
     color: @green;
+    background: @bg_focus;
     border-bottom: 2px solid @green;
 }
 
-#workspaces button.urgent {
-    color: @red;
-}
-
 #workspaces button:hover {
-    color: @purple;
-    background: transparent; /* Hover sutil */
-    box-shadow: inherit;
-    text-shadow: inherit;
+    background: @bg_focus;
+    color: @cyan;
 }
 
-/* --- Módulos Generales --- */
-/* Aplicamos estilo base a todos los módulos */
-.modules-left > widget:first-child > #workspaces {
-    margin-left: 0;
-}
+/* --- IZQUIERDA --- */
 
-.modules-right > widget:last-child > #workspaces {
-    margin-right: 0;
-}
-
-/* Agrupación visual por colores y "pills" */
-
-/* Píldora Izquierda (Rofi + Weather + Date) */
+/* Botón de Inicio (Arch) */
 #custom-rofi {
-    background: @purple;
-    color: @black;
-    margin-left: 5px;
+    background-color: @purple;
+    color: #282a36; /* Texto oscuro para contraste */
+    border-radius: 15px;
     padding: 0 12px;
-    border-radius: 12px 0 0 12px; /* Inicio de píldora */
-}
-#custom-weather {
-    background: @background;
-    padding: 0 8px;
-}
-#custom-khorshididate {
-    background: @background;
-    padding: 0 8px 0 4px;
-    border-radius: 0 12px 12px 0; /* Fin de píldora */
-    margin-right: 10px;
+    margin: 5px 5px 5px 5px;
+    font-size: 16px;
 }
 
-/* Reloj */
-#clock {
-    background: @background;
-    color: @orange;
+/* Clima y Fecha */
+#custom-weather, #custom-khorshididate {
+    background: @bg_main;
+    color: @cyan;
     padding: 0 10px;
-    border-radius: 12px;
-    margin: 0 5px;
+    margin: 5px 2px;
+    border-radius: 10px;
 }
 
-/* Píldora Derecha - Hardware (Cpu, Mem, Disk, Temp) */
-#cpu, #memory, #disk, #temperature {
-    background: @background;
-    color: @foreground;
-    padding: 0 6px;
+#clock {
+    background: @bg_main;
+    color: @orange;
+    padding: 0 12px;
+    margin: 5px 5px;
+    border-radius: 15px;
 }
-#cpu {
-    border-radius: 12px 0 0 12px;
-    margin-left: 10px;
-    color: @blue;
+
+/* --- DERECHA --- */
+
+/* Bandeja del sistema */
+#tray {
+    background: @bg_main;
+    padding: 0 10px;
+    margin: 5px 5px;
+    border-radius: 15px;
 }
-#temperature {
-    border-radius: 0 12px 12px 0;
-    margin-right: 10px;
+
+/* Módulos de Audio (Unificados visualmente) */
+#pulseaudio, #pulseaudio.microphone {
+    background: @bg_focus;
+    color: @purple;
+    padding: 0 10px;
+    margin: 5px 2px;
+    border-radius: 10px;
+}
+#pulseaudio.muted {
     color: @red;
 }
 
-/* Píldora Audio/Red/Batería */
-#pulseaudio, #pulseaudio.microphone, #network, #battery, #backlight {
-    background: @background;
+/* Hardware Info (CPU, MEM, DISK, TEMP) */
+/* Les damos un fondo común pero separados por márgenes pequeños */
+#cpu, #memory, #disk, #temperature {
+    background: @bg_main;
+    color: @fg;
     padding: 0 8px;
+    margin: 5px 1px;
+    border-radius: 8px;
 }
 
-#pulseaudio {
-    border-radius: 12px 0 0 12px; /* Inicio grupo sistema */
-    color: @purple;
-}
+#cpu { color: @cyan; }
+#memory { color: @pink; }
+#temperature { color: @orange; }
+#disk { color: @yellow; }
 
-#battery {
-    color: @green;
-}
-
-/* Power Menu */
-#custom-power {
+/* Estados críticos */
+#temperature.critical, #disk.critical {
     background: @red;
-    color: @white;
-    padding: 0 12px;
-    margin-right: 5px;
-    border-radius: 0 12px 12px 0;
-}
-
-/* Estados Críticos */
-#battery.critical.discharging {
-    background-color: @red;
-    color: @white;
+    color: #ffffff;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-iteration-count: infinite;
-    animation-direction: alternate;
+}
+
+/* Red e Idioma */
+#network {
+    background: @bg_main;
+    color: @green;
+    padding: 0 10px;
+    margin: 5px 2px;
+    border-radius: 10px;
+}
+
+#language {
+    background: @cyan;
+    color: #282a36;
+    padding: 0 8px;
+    margin: 5px 2px;
+    border-radius: 8px;
+    min-width: 20px;
+}
+
+/* Batería */
+#battery {
+    background: @bg_main;
+    color: @green;
+    padding: 0 10px;
+    margin: 5px 2px;
+    border-radius: 10px;
+}
+#battery.charging { color: @fg; }
+#battery.warning:not(.charging) { background: @orange; color: #282a36; }
+#battery.critical:not(.charging) { background: @red; color: #ffffff; animation: blink 0.5s infinite; }
+
+/* Botones de Sistema (Lock y Power) */
+#custom-lock_screen {
+    background: @bg_focus;
+    color: @fg;
+    padding: 0 12px;
+    margin: 5px 2px 5px 5px; /* Un poco de separación extra a la izquierda */
+    border-radius: 15px 5px 5px 15px; /* Forma de media píldora */
+}
+
+#custom-power {
+    background: @red;
+    color: #ffffff;
+    padding: 0 14px;
+    margin: 5px 5px 5px 0px;
+    border-radius: 5px 15px 15px 5px; /* Cierre de media píldora */
+}
+
+/* Animación de parpadeo */
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
 }
 
 tooltip {
-    background: @background;
+    background: @bg_main;
     border: 1px solid @purple;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 tooltip label {
-    color: @foreground; /* Corregido el bug de @grey */
+    color: @fg;
 }
