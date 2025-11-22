@@ -1,0 +1,28 @@
+configuration {
+    /* Modos habilitados */
+    modi: "drun,run,filebrowser";
+    
+    /* Comportamiento */
+    show-icons: true;
+    icon-theme: "Papirus-Dark"; /* Asegúrate de tener este tema o cambia a uno que tengas */
+    drun-display-format: "{icon} {name}";
+    disable-history: false;
+    sidebar-mode: false; /* Desactivado para look minimalista, activa si usas tabs */
+    
+    /* Aplicaciones */
+    terminal: "kitty"; /* O 'alacritty', 'kitty', lo que uses */
+    
+    /* Optimizaciones Wayland */
+    hover-select: true; /* Selecciona al pasar el mouse, muy cómodo */
+    me-select-entry: "";
+    me-accept-entry: "MousePrimary";
+    
+    /* Textos de búsqueda */
+    display-drun: "Apps";
+    display-run: "Run";
+    display-filebrowser: "Files";
+    display-window: "Window";
+}
+
+/* Importamos el tema modernizado */
+@theme "theme/dracula-rounded"
